@@ -23,6 +23,7 @@ class Game
     @player_2
   end
 
+<<<<<<< HEAD
   def current_player #tells who the current plater is
     if @board.turn_count.odd? == true
         current_player = player_2
@@ -68,21 +69,68 @@ class Game
 
   def draw? #are all the cells full but there is no winner?
     if won? == false and full? == true
+=======
+  def current_player
+    if @board.turn_count.odd? == true
+        current_player = player_2
+        # next_up = player_1# e.g 1 - x goes first
+      elsif @board.turn_count.even? == true
+        current_player = player_1
+        # next_up = player_2  #eg 2 - O goes second
+      end
+    end
+
+  def won?
+    WIN_COMBINATIONS.each do |win_combination|
+
+    win_index_1 = win_combination[0]
+    win_index_2 = win_combination[1]
+    win_index_3 = win_combination[2]
+
+    position_1 = @board.cells[win_index_1]
+    position_2 = @board.cells[win_index_2]
+    position_3 = @board.cells[win_index_3]
+
+    if @board.cells.any?{|index| index == "X" || index == "O"}
+      if position_1 == "X" && position_2 == "X" && position_3 == "X"
+        return win_combination
+      elsif position_1 == "O" && position_2 == "O" && position_3 == "O"
+        return win_combination
+      end
+    else
+     return false
+    end
+  end
+  return false
+end
+
+  def draw?
+    if won? == false && @board.cells.all? {|cell| cell != " "}
+>>>>>>> 4185e24914285d5b965cccd75fcbf65dd2f5bdc5
       return true
     else
      return false
     end
   end
 
+<<<<<<< HEAD
   def over? #is the game over?
     if won? != false or draw? == true or full? == true
+=======
+  def over?
+    if won? != false || draw? == true || @board.cells.all? {|cell| cell != " "}
+>>>>>>> 4185e24914285d5b965cccd75fcbf65dd2f5bdc5
       return true
     else
       return false
     end
   end
 
+<<<<<<< HEAD
   def winner #who is the winner
+=======
+  def winner
+>>>>>>> 4185e24914285d5b965cccd75fcbf65dd2f5bdc5
     if won? != false
 
       xcount = 0
@@ -99,6 +147,7 @@ class Game
     end
   end
 
+<<<<<<< HEAD
   def turn #take a turn
     move = current_player.move(board)  #move = input
     if @board.valid_move?(move)  #if it is a valit input
@@ -114,6 +163,26 @@ class Game
       turn  #take a turn
     end
 
+=======
+  def turn
+    if won? != true
+      move = current_player.move(board)
+      if @board.valid_move?(move)
+        @board.position(move)
+        @board.display
+      else
+        turn
+      end
+    end
+  end
+
+
+  def play
+     while over? != true
+    #   #if the game is not over
+        turn  #take a turn
+      end
+>>>>>>> 4185e24914285d5b965cccd75fcbf65dd2f5bdc5
     if won? != false #if the game has been won
       puts "Congratulations " + winner + "!" #puts congrats winner
     elsif draw? == true #if the game is a draw
@@ -121,4 +190,8 @@ class Game
     end
   end
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4185e24914285d5b965cccd75fcbf65dd2f5bdc5
 end
